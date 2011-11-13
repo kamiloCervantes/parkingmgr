@@ -1,6 +1,6 @@
 <?php
 
-include_once '../controllers/vehiculos_controller.php';
+include_once '../controllers/servicios_controller.php';
 
-$_vehiculos = new Vehiculos_Controller();
-$_vehiculos->add();
+$_servicios = new Servicios_Controller();
+$_servicios->add();
