@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Parking Manager</title>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<!--[if (gte IE 6)&(lte IE 8)]>
+		<script type="text/javascript" src="js/lib/selectivizr.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/lib/prefixfree.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<header>
+		<h1>parking manager</h1>
+	</header>
+	<div id="content">
+	<section id="menu">
+		<ul>
+			<a href="nuevoingreso.html"><li><p>Nuevo Ingreso</p></li></a>
+			<a href="#"><li class="current"><p>Registrar Pago</p></li></a>
+			<a href="generarreportes.html"><li><p>Generar reportes</p></li></a>
+			<li id="salir"><p>Salir</p></li>
+		</ul>
+	</section>
+	<section id="contenido">
+		<div id="buscadorservicios">
+		<form id="buscaservicio">
+			<fieldset>
+			<p>
+			<label for="param_busqueda">Buscar servicio</label>
+			<input type="text" id="param_busqueda" class="text" placeholder="placa veh&iacute;culo" required />
+			<input type="submit" value="Buscar" class="button"/>
+			</p>
+			</fieldset>
+		</form>
+		<hr />
+		<table id="resultados">
+			<tr>
+				<td>Id. Servicio</td>
+				<td>Fecha de Ingreso</td>
+				<td>Tiempo</td>
+				<td>Debe</td>
+				<td>Acciones</td>
+			</tr>
+			<tr>
+				<td>121</td>
+				<td>2011-11-10</td>
+				<td>8 dias</td>
+				<td>$20000</td>
+				<td><a href="javascript:;" id="121">Pagar</a></td>
+			</tr>
+			<tr>
+				<td>122</td>
+				<td>2011-10-10</td>
+				<td>81 dias</td>
+				<td>$230000</td>
+				<td><a href="javascript:;" id="122">Pagar</a></td>
+			</tr>
+			<tr>
+				<td>123</td>
+				<td>2011-11-10</td>
+				<td>8 dias</td>
+				<td>$20000</td>
+				<td><a href="javascript:;" id="123">Pagar</a></td>
+			</tr>
+			<tr>
+				<td>124</td>
+				<td>2011-10-10</td>
+				<td>81 dias</td>
+				<td>$230000</td>
+				<td><a href="javascript:;" id="124">Pagar</a></td>
+			</tr>
+		</table>	
+		</div>
+		<div id="formpago">
+			<h2></h2>
+			<hr />
+			<form id="pagoservicio">
+				<fieldset>
+				<p>
+				<label for="valor_pago">Valor a pagar</label>
+				<input type="number" id="valor_pago" class="text" required/>
+				</p>
+				<p>
+				<label for="fecha_pago">Fecha de pago</label>
+				<input type="date" id="fecha_pago" class="text" required/>
+				</p>
+				<p>
+				<input type="submit" value="Guardar" class="button"/>
+				<input type="button" value="Cancelar" class="button" id="cancelarpago"/>
+				</p>
+				</fieldset>
+			</form>
+		</div>
+	</section>
+	</div>
+	<footer>
+		&copy; Copyright ParkingMgr 2011
+	</footer>
+</body>
+</html>

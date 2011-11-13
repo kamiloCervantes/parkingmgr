@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Parking Manager</title>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<!--[if (gte IE 6)&(lte IE 8)]>
+		<script type="text/javascript" src="js/lib/selectivizr.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/lib/prefixfree.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<header>
+		<h1>parking manager</h1>
+	</header>
+	<div id="content">
+	<section id="menu">
+		<ul>
+			<a href="nuevoingreso.html"><li><p>Nuevo Ingreso</p></li></a>
+			<a href="registrarpago.html"><li><p>Registrar Pago</p></li></a>
+			<a href="#"><li class="current"><p>Generar reportes</p></li></a>
+			<li id="salir"><p>Salir</p></li>
+		</ul>
+	</section>
+	<section id="contenido">
+		<h2>Reporte de Ingresos</h2>
+		<hr />
+		<form id="generarreporte">
+			<fieldset>
+			<p>
+			<label for="fecha_inicial">Fecha inicial</label>
+			<input type="date" id="fecha_inicial" class="text" required/>
+			</p>
+			<p>
+			<label for="fecha_final">Fecha final</label>
+			<input type="date" id="fecha_final" class="text" required/>
+			</p>
+			<p>
+			<input type="submit" value="Generar" class="button"/>
+			<input type="button" value="Cancelar" class="button" id="cancelarreporte"/>
+			</p>
+			</fieldset>
+		</form>
+	</section>
+	</div>
+	<footer>
+		&copy; Copyright ParkingMgr 2011
+	</footer>
+</body>
+</html>

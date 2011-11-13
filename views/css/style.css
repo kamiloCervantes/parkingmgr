@@ -1,0 +1,198 @@
+﻿@font-face {
+    font-family: 'XenophoneRegular';
+    src: url('fonts/xenophone-webfont.eot');
+    src: url('fonts/xenophone-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/xenophone-webfont.woff') format('woff'),
+         url('fonts/xenophone-webfont.ttf') format('truetype'),
+         url('fonts/xenophone-webfont.svg#XenophoneRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body{
+	background: #04819e;
+	font-family: Helvetica, Arial;
+	font-size: 16px;
+	margin: 0;
+	text-align: center;
+}
+
+fieldset{
+	border: 0;
+	text-align: left;
+}
+
+footer, header, #content{
+	background: #fff;
+	behavior: url(css/PIE.htc);
+	border-radius: 0.5em;
+	display: block;
+	margin: 1em auto;
+	padding: 1em;
+	width: 80%;
+}
+
+footer{
+	background: #030c21;
+	color: #fff;
+}
+
+h2{
+	color: #fff;
+}
+
+h3{
+	margin: 0;
+}
+
+header{
+	background: url('../images/park1.png');
+}
+
+header h1{
+	behavior: url(css/PIE.htc);
+	color: #fff;
+	font-family: 'XenophoneRegular','Arial';
+	font-size: 3em;
+	text-shadow: rgba(0,0,0,0.5) 0px 8px 10px; 
+}
+
+hr{
+	border: solid 1px #033e6b;
+	width: 95%;	
+}
+
+input.button, #menu li, #menu li.current:hover{
+	background: #033e6b;
+	behavior: url(css/PIE.htc);
+	border-radius: 10px;
+	box-shadow: rgba(7,29,112,0.8) 0px 5px 10px;	
+	color: #fff;
+	cursor: pointer;
+	margin: 1em;
+	padding: 3px 4px 3px 4px;
+	text-shadow: rgba(0,0,0,0.9) 0px 24px 16px; 
+}
+
+input.button{
+	behavior: url(css/PIE.htc);
+	border: 0;
+	box-shadow: rgba(0,0,0,0.8) 0px 4px 7px;
+	margin: 1em;
+	width: 40%;
+}
+
+input.button:hover{
+	font-weight: bold;
+}
+
+input.text, select{
+	behavior: url(css/PIE.htc);
+	border:solid 1px #999;
+	border-radius: 3px;
+	padding: 7px 8px 7px 8px;
+	width: 95%;
+}
+
+input.text{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+table{
+	background: #fff;
+	behavior: url(css/PIE.htc);
+	border-radius: 3px;
+	margin: 1em auto;
+	width: 95%;
+}
+
+
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#content section{
+	display: inline-block;
+	margin: 1em;
+	vertical-align: top;
+}
+
+#content{
+	behavior: url(css/PIE.htc);
+	box-shadow: rgba(0,0,0,0.5) 2px 2px 15px inset;
+}
+
+#content #menu{
+	width: 20%;
+}
+
+#content #contenido{
+	background: #04819e;
+	behavior: url(css/PIE.htc);
+	border-radius: 3px;
+	box-shadow: rgba(0,0,0,0.8) 0px 8px 10px; 
+	width: 70%;
+}
+
+#content #contenido label{
+	behavior: url(css/PIE.htc);
+	color: #fff;
+	font-weight: bold;
+	text-shadow: rgba(0,0,0,0.5) 0px 8px 10px; 
+}
+
+#menu a{
+	color: #fff;
+	text-decoration: none;
+}
+
+#menu a:hover{
+	color: #000;
+}
+
+#menu li.current{
+	background: #04819e;
+}
+
+#menu li.current:hover{
+	behavior: url(css/PIE.htc);
+	background: #04819e;
+	transform: none;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-o-transform: none;
+	-ms-transform: none;
+}
+
+#menu li:hover{
+	background: #ffda00;
+	behavior: url(css/PIE.htc);
+	box-shadow: rgba(0,0,0,0.8) 0px 5px 10px;
+	color: #000;
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+}
+
+#param_busqueda{
+	width: 30%;
+}
+
+#resultados tr:first-child{
+	background: #000;
+	color: #fff;
+}
+
+#resultados tr:nth-child(even){
+	background: #ccc;
+}
+
+#formpago{
+	display: none;
+}

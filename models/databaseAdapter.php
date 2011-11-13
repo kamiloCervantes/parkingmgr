@@ -3,11 +3,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$rootPath = dirname(dirname(__FILE__));
-set_include_path(get_include_path() . PATH_SEPARATOR . $rootPath . '/controllers' . PATH_SEPARATOR
-									. PATH_SEPARATOR . '/models' . PATH_SEPARATOR . '/views' . PATH_SEPARATOR);
 
-include_once 'conf/dbconf.php';									
+include_once 'conf/dbconf.php';		
+							
 class databaseAdapter {
 
    //Datos de conexion
@@ -15,7 +13,6 @@ class databaseAdapter {
 	private $_password;
 	private $_database;
 	private $_server;
-    private $_databaseManager;
 
 	//Variable de conexion y consulta
 	private $_conn;
@@ -38,20 +35,21 @@ class databaseAdapter {
 	}
 
 	//Conectarse con una base de datos en Postgresql
-	private function connectPostgres(){
-		$this-> _conn=pg_connect("host=".$this->_server.
-					 " dbname=".$this->_database.
-					 " user=".$this->_user.
-					 " password=".$this->_password."")
-				         or die("<br>Error: Conexion fallida.<br>");
+	public function connect(){
+		$this-> _conn=pg_connect(
+								"host=".$this->_server.
+								" dbname=".$this->_database.
+								" user=".$this->_user.
+					 			" password=".$this->_password."")
+				      or die("<h1>Error: Conexion fallida.<h1>");
 	}
         
-        private function  closePostgres(){
+        public function  close(){
         	pg_close($this->_conn);
         }
 
 	//Ejecutar consulta en postgresql
-	private function executePostgres($query){
+	public function execute($query){
 		//echo $query;
 		$respuesta = pg_query($this->_conn, $query) or die(pg_errormessage($this->_conn));
                 return $respuesta;
@@ -60,6 +58,14 @@ class databaseAdapter {
     private function countRowPostgres($result){
     	return pg_num_rows($result);
     }
+    
+	 private function setConnectDefault(){
+        	$info = new dbconf();
+      		$this->_database = $info->getDatabase();
+      		$this->_user = $info->getUser();
+      		$this->_password = $info->getPassword();
+      		$this->_server = $info->getServer();
+        }
 
 	public function __clone()
    	{
