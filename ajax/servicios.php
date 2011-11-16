@@ -2,5 +2,13 @@
 
 include_once '../controllers/servicios_controller.php';
 
-$_servicios = new Servicios_Controller();
-$_servicios->add();
+if(isset($_POST['action']))
+{
+	$_servicios = new Servicios_Controller();
+	/* actions */
+		switch($_POST['action'])
+		{
+			case 'addServicio.do': $_servicios->add(); break;
+		}
+	//$_servicios->add();
+}

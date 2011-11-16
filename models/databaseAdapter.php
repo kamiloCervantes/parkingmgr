@@ -6,7 +6,8 @@
 
 include_once 'conf/dbconf.php';		
 							
-class databaseAdapter {
+class databaseAdapter 
+{
 
    //Datos de conexion
 	private $_user;
@@ -21,12 +22,14 @@ class databaseAdapter {
 	private static $INSTANCIA_DE_CLASE;
 	
 	//Constructor
-	private function __construct(){
+	private function __construct()
+	{
 		$this->setConnectDefault();
 	}
 
 	//Metodo para crear una instancia unica de la clase.
-	public static function getInstance(){
+	public static function getInstance()
+	{
 		if(!self::$INSTANCIA_DE_CLASE instanceof self)
 		{
 			self::$INSTANCIA_DE_CLASE = new self();
@@ -35,7 +38,8 @@ class databaseAdapter {
 	}
 
 	//Conectarse con una base de datos en Postgresql
-	public function connect(){
+	public function connect()
+	{
 		$this-> _conn=pg_connect(
 								"host=".$this->_server.
 								" dbname=".$this->_database.
@@ -44,28 +48,31 @@ class databaseAdapter {
 				      or die("<h1>Error: Conexion fallida.<h1>");
 	}
         
-        public function  close(){
-        	pg_close($this->_conn);
-        }
+    public function  close()
+    {
+       	pg_close($this->_conn);
+    }
 
 	//Ejecutar consulta en postgresql
-	public function execute($query){
-		//echo $query;
+	public function execute($query)
+	{
 		$respuesta = pg_query($this->_conn, $query) or die(pg_errormessage($this->_conn));
-                return $respuesta;
+        return $respuesta;
+	}
+	
+	public function fetch_json($result)
+	{
+		return json_encode(pg_fetch_assoc($result));
 	}
 
-    private function countRowPostgres($result){
-    	return pg_num_rows($result);
-    }
-    
-	 private function setConnectDefault(){
+	 private function setConnectDefault()
+	 {
         	$info = new dbconf();
       		$this->_database = $info->getDatabase();
       		$this->_user = $info->getUser();
       		$this->_password = $info->getPassword();
       		$this->_server = $info->getServer();
-        }
+     }
 
 	public function __clone()
    	{

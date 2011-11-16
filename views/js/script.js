@@ -18,9 +18,23 @@ function cancelarVehiculoForm(){
 	$('#ingresovehiculo').reset();
 }
 
+function enviarServicio(event){
+	event.preventDefault();
+	$.post("../ajax/servicios.php",
+				{ 
+					action:"addServicio.do",
+					placa: $('#placa').val(), 
+					tiempo: $('#tiempo').val(), 
+					und_tiempo: $('#und_tiempo').val(),
+				},
+				function(data){
+					alert(data.respuesta);
+				},
+				"json");
+}
+
 function enviarVehiculo(event){
 	event.preventDefault();
-	alert($('#tipo_vehiculo').val());
 	$.post("../ajax/vehiculos.php",
 				{ 
 					action:"addVehiculo.do",
@@ -29,10 +43,7 @@ function enviarVehiculo(event){
 					propietario: $('#propietario').val(),
 					id_propietario: $('#id_propietario').val(),
 					tel_propietario: $('#tel_propietario').val()
-				}, 
-		function(data){
-			alert(data.respuesta);
-	},"json");
+				},"json");
 }
 
 /*
@@ -50,8 +61,9 @@ function init(){
 	$('#resultados a').on("click", mostrarPagoForm);
 	$('#pagoservicio #cancelarpago').on("click", cancelarPagoForm);
 	$('#generarreporte #cancelarreporte').on("click", cancelarReporteForm);
-	$('#ingresovehiculo').on("submit", enviarVehiculo);
+	//$('#ingresovehiculo').on("submit", enviarVehiculo);
 	$('#ingresovehiculo #btncancelar').on("click", cancelarVehiculoForm);
+	$('#ingresovehiculo').on("submit", enviarServicio);
 }
 
 function mostrarPagoForm(){
