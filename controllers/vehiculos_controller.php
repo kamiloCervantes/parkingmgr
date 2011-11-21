@@ -18,8 +18,8 @@ class Vehiculos_Controller
 			$this->_conn->connect();
 			$_query = sprintf("INSERT INTO vehiculos(id, tipo_vehiculo, nombre_propietario, tel_propietario, id_propietario) VALUES ('%s', '%s', '%s','%s','%s')",$_POST['placa'],$_POST['tipo_vehiculo'],$_POST['propietario'],$_POST['tel_propietario'],$_POST['id_propietario']);
 			$_query2 = sprintf("INSERT INTO users_vehiculos(users_id, vehiculos_id) VALUES(%d, '%s')",1,$_POST['placa']);
-			$this->_conn->execute($_query);
-			$this->_conn->execute($_query2);
+			$result_vehiculos = $this->_conn->execute($_query);
+			$result_users = $this->_conn->execute($_query2);
 			$this->_conn->close();
 			unset($_POST['action']);
 			//echo '{ "respuesta" : "200"}';

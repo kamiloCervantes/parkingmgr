@@ -58,6 +58,13 @@ class databaseAdapter
 	{
 		$respuesta = pg_query($this->_conn, $query) or die(pg_errormessage($this->_conn));
         return $respuesta;
+	 	/*
+		if (!pg_connection_busy($this->_conn)) {
+     		pg_send_query($this->_conn, $query);
+  		}
+  		$respuesta = pg_get_result($this->_conn);
+  		return $respuesta;
+  		*/
 	}
 	
 	public function fetch_json($result)

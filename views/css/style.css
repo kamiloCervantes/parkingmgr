@@ -25,7 +25,7 @@ fieldset{
 
 footer, header, #content{
 	background: #fff;
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border-radius: 0.5em;
 	display: block;
 	margin: 1em auto;
@@ -51,7 +51,7 @@ header{
 }
 
 header h1{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	color: #fff;
 	font-family: 'XenophoneRegular','Arial';
 	font-size: 3em;
@@ -65,7 +65,7 @@ hr{
 
 input.button, #menu li, #menu li.current:hover{
 	background: #033e6b;
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border-radius: 10px;
 	box-shadow: rgba(7,29,112,0.8) 0px 5px 10px;	
 	color: #fff;
@@ -76,7 +76,7 @@ input.button, #menu li, #menu li.current:hover{
 }
 
 input.button{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border: 0;
 	box-shadow: rgba(0,0,0,0.8) 0px 4px 7px;
 	margin: 1em;
@@ -88,7 +88,7 @@ input.button:hover{
 }
 
 input.text, select{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border:solid 1px #999;
 	border-radius: 3px;
 	padding: 7px 8px 7px 8px;
@@ -100,9 +100,21 @@ input.text{
 	font-weight: bold;
 }
 
+input.error{
+	background: rgb(254,218,218);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZGFkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYzJSIgc3RvcC1jb2xvcj0iI2ZlYzJjMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmE1YTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  rgba(254,218,218,1) 0%, rgba(254,194,194,1) 63%, rgba(255,165,165,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,218,218,1)), color-stop(63%,rgba(254,194,194,1)), color-stop(100%,rgba(255,165,165,1)));
+	background: -webkit-linear-gradient(top,  rgba(254,218,218,1) 0%,rgba(254,194,194,1) 63%,rgba(255,165,165,1) 100%);
+	background: -o-linear-gradient(top,  rgba(254,218,218,1) 0%,rgba(254,194,194,1) 63%,rgba(255,165,165,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(254,218,218,1) 0%,rgba(254,194,194,1) 63%,rgba(255,165,165,1) 100%);
+	background: linear-gradient(top,  rgba(254,218,218,1) 0%,rgba(254,194,194,1) 63%,rgba(255,165,165,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fedada', endColorstr='#ffa5a5',GradientType=0 );
+	}
+
 table{
 	background: #fff;
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border-radius: 3px;
 	margin: 1em auto;
 	width: 95%;
@@ -122,7 +134,7 @@ ul{
 }
 
 #content{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	box-shadow: rgba(0,0,0,0.5) 2px 2px 15px inset;
 }
 
@@ -132,14 +144,14 @@ ul{
 
 #content #contenido{
 	background: #04819e;
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	border-radius: 3px;
 	box-shadow: rgba(0,0,0,0.8) 0px 8px 10px; 
 	width: 70%;
 }
 
 #content #contenido label{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	color: #fff;
 	font-weight: bold;
 	text-shadow: rgba(0,0,0,0.5) 0px 8px 10px; 
@@ -159,7 +171,7 @@ ul{
 }
 
 #menu li.current:hover{
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	background: #04819e;
 	transform: none;
 	-webkit-transform: none;
@@ -170,7 +182,7 @@ ul{
 
 #menu li:hover{
 	background: #ffda00;
-	behavior: url(css/PIE.htc);
+	behavior: url(PIE.htc);
 	box-shadow: rgba(0,0,0,0.8) 0px 5px 10px;
 	color: #000;
 	transform: scale(1.1);
@@ -178,6 +190,32 @@ ul{
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);
 	-ms-transform: scale(1.1);
+}
+
+#msgs{
+	display: none;
+	border-radius: 6px;
+	behavior: url(PIE.htc);
+	height: auto;
+	margin: 1em auto;
+	width: 95%;
+}
+
+#msgs p{
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#msgs.error{
+	border: 1px solid red;
+	background: #ff9e9e;
+	display: block;
+}
+
+#msgs.ok{
+	border: 1px solid green;
+	background: #9cff76;
+	display: block;
 }
 
 #param_busqueda{

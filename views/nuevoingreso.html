@@ -3,17 +3,24 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Parking Manager</title>
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/redmond/jquery-ui.css" />
+	<link rel="stylesheet" href="css/ui.spinner.css" />
 	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script type="text/javascript" src="js/lib/html5.js"></script>
 	<![endif]-->
+	<!--
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	-->
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/lib/modernizr-2.0.6.js"></script>
 	<!--[if (gte IE 6)&(lte IE 8)]>
 		<script type="text/javascript" src="js/lib/selectivizr.js"></script>
 	<![endif]-->
-	<link rel="stylesheet" href="css/normalize.css" />
-	<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/style.css" />
-	<script src="js/lib/prefixfree.min.js"></script>
+	<script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
@@ -21,6 +28,7 @@
 		<h1>parking manager</h1>
 	</header>
 	<div id="content">
+		<div id="msgs"></div>
 	<section id="menu">
 		<ul>
 			<a href="#"><li class="current"><p>Nuevo Ingreso</p></li></a>
@@ -34,11 +42,11 @@
 			<fieldset>
 			<p>
 			<label for="placa">Placa veh&iacute;culo</label>
-			<input type="text" id="placa" class="text" maxlength="10" required autofocus/>
+			<input type="text" id="placa" name="placa" class="text" maxlength="10" required autofocus/>
 			</p>
 			<p>
 			<label for="tipo_vehiculo">Tipo de veh&iacute;culo</label>
-			<select id="tipo_vehiculo">
+			<select id="tipo_vehiculo" name="tipo_vehiculo">
 				<option value="CARRO">Carro</option>
 				<option value="MOTO">Moto</option>
 				<option value="BICICLETA">Bicicleta</option>
@@ -46,28 +54,32 @@
 			</p>
 			<p>
 			<label for="propietario">Nombre del propietario</label>
-			<input type="text" id="propietario" class="text" required/>
+			<input type="text" id="propietario" name="propietario" class="text" maxlength="50" required/>
 			</p>
 			<p>
 			<label for="id_propietario">C&eacute;dula del propietario</label>
-			<input type="number" id="id_propietario" class="text" maxlength="20" required/>
+			<input type="text" id="id_propietario" name="id_propietario" class="text" maxlength="20" required/>
 			</p>
 			<p>
 			<label for="tel_propietario">Tel&eacute;fono del propietario</label>
-			<input type="number" id="tel_propietario" class="text" maxlength="15" required/>
+			<input type="text" id="tel_propietario" name="tel_propietario" class="text" maxlength="15" required/>
 			</p>
 			<p>
 			<label for="tiempo">Tiempo</label>
-			<input type="number" id="tiempo" class="text" required/>
+			<input type="number" id="tiempo" name="tiempo" class="text" value="0" min="0" max="100"/>
 			</p>
 			<p>
 			<label for="und_tiempo">Unidades de tiempo</label>
-			<select id="und_tiempo">
+			<select id="und_tiempo" name="und_tiempo">
 				<option value="m">Minutos</option>
 				<option value="h">Horas</option>
 				<option value="d">Días</option>
 				<option value="M">Meses</option>
 			</select>
+			</p>
+			<p>
+			<label for="precio">Valor a pagar</label>
+			<input type="text" id="precio" name="precio" class="text" required/>
 			</p>
 			<p>
 			<input type="submit" value="Guardar" class="button" />

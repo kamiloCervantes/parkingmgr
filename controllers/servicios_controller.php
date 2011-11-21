@@ -15,10 +15,11 @@ class Servicios_Controller
 	if($_POST['action']=='addServicio.do')
 		{
 			$this->_conn->connect();
-			$_query = sprintf("INSERT INTO servicios(vehiculos_id, fecha_ingreso, tiempo, und_tiempo) VALUES ('%s', '%s', %d, '%s') returning id",$_POST['placa'],date("Y-m-d"),$_POST['tiempo'],$_POST['und_tiempo']);
+			$_query = sprintf("INSERT INTO servicios(vehiculos_id, fecha_ingreso, tiempo, und_tiempo, precio) VALUES ('%s', '%s', %d, '%s',%d) returning id",$_POST['placa'],date("Y-m-d"),$_POST['tiempo'],$_POST['und_tiempo'],$_POST['precio']);
 			$result = $this->_conn->execute($_query);
-			$insert_row = pg_fetch_row($_result);
-			$_query2 = sprintf("INSERT INTO users_servicios(users_id, servicios_id) VALUES(%d, '%s')",1,$insert_row[0]);
+			$insert_row = pg_fetch_row($result);
+			$insert_id = $insert_row[0];
+			$_query2 = sprintf("INSERT INTO users_servicios(users_id, servicios_id) VALUES(%d, '%s')",1,$insert_id);
 			$this->_conn->execute($_query2);
 			$this->_conn->close();
 			unset($_POST['action']);
