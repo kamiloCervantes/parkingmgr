@@ -48,7 +48,7 @@ class databaseAdapter
 				      or die("<h1>Error: Conexion fallida.<h1>");
 	}
         
-    public function  close()
+    public function close()
     {
        	pg_close($this->_conn);
     }
@@ -58,18 +58,16 @@ class databaseAdapter
 	{
 		$respuesta = pg_query($this->_conn, $query) or die(pg_errormessage($this->_conn));
         return $respuesta;
-	 	/*
-		if (!pg_connection_busy($this->_conn)) {
-     		pg_send_query($this->_conn, $query);
-  		}
-  		$respuesta = pg_get_result($this->_conn);
-  		return $respuesta;
-  		*/
 	}
 	
 	public function fetch_json($result)
 	{
 		return json_encode(pg_fetch_assoc($result));
+	}
+	
+	public function fetch_assoc($result)
+	{
+		return pg_fetch_assoc($result);
 	}
 
 	 private function setConnectDefault()

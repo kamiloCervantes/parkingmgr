@@ -9,6 +9,7 @@ if(isset($_POST['action']))
 		switch($_POST['action'])
 		{
 			case 'addServicio.do': $_servicios->add(); break;
+			case 'getServicios.do': $_servicios->get(); break;
 		}
 	//$_servicios->add();
 }

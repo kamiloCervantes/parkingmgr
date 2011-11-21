@@ -5,6 +5,20 @@ jQuery.fn.reset = function () {
 
 $(init);
 
+function buscarServicios(event){
+	event.preventDefault();
+	//alert("hola");
+	$.post("../ajax/servicios.php",
+				{ 
+					action:"getServicios.do",
+					placa: $('#param_busqueda').val()
+				},
+				function(data){
+					alert(data)
+					});
+				//},"json");
+}
+
 function cancelarPagoForm(){
 	$('#formpago').fadeOut(200);
 	$('#pagoservicio').reset();
@@ -49,62 +63,6 @@ function enviarServicio(){
 }
 
 function enviarVehiculo(){
-	/*
-	var msgs = [];
-	var invalid = false;
-	if($('#placa').val().length > 10){
-		invalid = true;
-		msgs.push("<li><p>La placa del veh&iacute;culo puede tener m&aacute;ximo 10 caract&eacute;res</p></li>");
-	}
-	if($('#propietario').val().length > 50){
-		invalid = true;
-		msgs.push("<li><p>El nombre del propietario puede tener m&aacute;ximo 50 caract&eacute;res</p></li>");
-	}
-	if($('#id_propietario').val().length > 20){
-		invalid = true;
-		msgs.push("<li><p>La c&eacute;dula del propietario puede tener m&aacute;ximo 20 caract&eacute;res</p></li>");
-	}
-	if(isNaN($('#id_propietario').val())){
-		invalid = true;
-		msgs.push("<li><p>La c&eacute;dula del propietario solo puede contener n&uacute;meros</p></li>");
-	}
-	if($('#tel_propietario').val().length > 15){
-		invalid = true;
-		msgs.push("<li><p>El tel&eacute;fono del propietario puede tener m&aacute;ximo 15 caract&eacute;res</p></li>");
-	}
-	if(isNaN($('#tel_propietario').val())){
-		invalid = true;
-		msgs.push("<li><p>El tel&eacute;fono del propietario solo puede contener n&uacute;meros</p></li>");
-	}
-	if(isNaN($('#tiempo').val())){
-		invalid = true;
-		msgs.push("<li><p>El tiempo solo puede contener n&uacute;meros</p></li>");
-	}
-	else{
-		if($('#tiempo').val() > 100 || $('#tiempo').val() < 0){
-			invalid = true;
-			msgs.push("<li><p>El valor de tiempo debe estar dentro del rango 0 - 100</p></li>");
-		}
-	}
-	if(isNaN($('#precio').val())){
-		invalid = true;
-		msgs.push("<li><p>El precio solo puede contener n&uacute;meros</p></li>");
-	}
-	
-	
-	if(invalid){
-		$('<ul/>',{
-			html: msgs.join('')
-		}).appendTo('#msgs');
-		$('#msgs').addClass('error');
-	}
-	else{
-		$('<ul/>',{
-			html: '<li><p>El formulario ha sido enviado correctamente</p></li>'
-		}).appendTo('#msgs');
-		$('#msgs').addClass('ok');
-	}
-	*/
 	$.post("../ajax/vehiculos.php",
 				{ 
 					action:"addVehiculo.do",
@@ -139,6 +97,7 @@ function init(){
 	$('#ingresovehiculo #btncancelar').on("click", cancelarVehiculoForm);
 	$('#ingresovehiculo').on("submit", ingresarVehiculo);
 	$('#ingresovehiculo #placa').on("blur", cargarDataVehiculo);
+	$('#buscaservicio').on("submit", buscarServicios);
 }
 
 function mostrarPagoForm(){
@@ -176,7 +135,8 @@ function validarForm(form){
 		}
 		if(!Modernizr.inputtypes.number){
 		if($(this).attr("type")=="number" && $(this).attr("min") && $(this).attr("max")){
-			if($(this).val() < $(this).attr("min") || $(this).val() > $(this).attr("max")){
+			if($(this).val() < parseInt($(this).attr("min")) || $(this).val() > parseInt($(this).attr("max"))){
+				alert($(this).val());
 				$(this).addClass("error");
 				$(this).on("keyup", function(){$(this).removeClass("error");});
 				valid = false;
