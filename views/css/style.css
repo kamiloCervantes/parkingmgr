@@ -18,6 +18,17 @@ body{
 	text-align: center;
 }
 
+div.totales{
+	display: block;
+	margin: 0 auto;
+	height: auto;
+	width: 100%;
+}
+
+div.totales p{
+	margin: 0 auto;
+}
+
 fieldset{
 	border: 0;
 	text-align: left;
@@ -114,8 +125,6 @@ input.error{
 
 table{
 	background: #fff;
-	behavior: url(PIE.htc);
-	border-radius: 3px;
 	margin: 1em auto;
 	width: 95%;
 }
@@ -155,6 +164,10 @@ ul{
 	color: #fff;
 	font-weight: bold;
 	text-shadow: rgba(0,0,0,0.5) 0px 8px 10px; 
+}
+
+#formpago{
+	display: none;
 }
 
 #menu a{
@@ -222,15 +235,22 @@ ul{
 	width: 30%;
 }
 
-#resultados tr:first-child{
+#resultados{
+	display: none;
+	margin: 0 auto 1em auto;
+	width: 95%;
+}
+
+#resultados table tr:first-child{
 	background: #000;
 	color: #fff;
 }
 
-#resultados tr:nth-child(even){
-	background: #ccc;
+#resultados h2{
+	color: #e17009;
 }
 
-#formpago{
-	display: none;
+#resultados table tr:nth-child(even){
+	background: #85b5d9;
 }
+

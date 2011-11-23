@@ -14,10 +14,72 @@ function buscarServicios(event){
 					placa: $('#param_busqueda').val()
 				},
 				function(data){
-					alert(data)
+					//document.write(data);
+					$('#resultados').fadeIn();
+					$('#resultados h2').text("Estado de cuenta del vehiculo "+data.vehiculos_id);
+					var sum_subtotal_pago = 0;
+					$.each(data.services,function(index,val){
+						sum_subtotal_pago += parseInt((val.precio - val.subtotal_pago));
+						var tmp = [];
+						tmp.push('<td>'+val.id+'</td>');
+						tmp.push('<td>'+val.fecha_ingreso+'</td>');
+						tmp.push('<td>'+val.tiempo+val.und_tiempo+'</td>');
+						tmp.push('<td>$'+val.precio+'</td>');
+						tmp.push('<td>$'+(val.precio - val.subtotal_pago)+'</td>');
+						$('<tr/>',{html: tmp.join('')}).appendTo('#servicios');
 					});
-				//},"json");
+					
+					$.each(data.pagos_service,function(index,val){
+						var tmp = [];
+						tmp.push('<td>$'+val.valor_pago+'</td>');
+						tmp.push('<td>'+val.fecha_pago+'</td>');
+						$('<tr/>',{html: tmp.join('')}).appendTo('#pagos');
+					});
+					$('#totser').append('<p>Valor total servicios prestados: $'+data.deuda+'</p>');
+					$('#totser').append('<p>Valor total deudas pendientes: $'+sum_subtotal_pago+'</p>');
+					$('#totpag').append('<p>Valor total pagos realizados: $'+data.pagos+'</p>');
+					//});
+				},"json");
 }
+
+/*
+function buscarServicios(event){
+	event.preventDefault();
+	//alert("hola");
+	$.post("../ajax/servicios.php",
+				{ 
+					action:"getServicios.do",
+					placa: $('#param_busqueda').val()
+				},
+				function(data){
+					//document.write(data);
+					$('#resultados').fadeIn();
+					$('#resultados h2').text("Estado de cuenta del vehiculo "+data.vehiculos_id);
+					//var sum_subtotal_pago = 0;
+					$.each(data.services,function(index,val){
+						//sum_subtotal_pago += parseInt(val.subtotal_pago);
+						var tmp = [];
+						tmp.push('<td>'+val.id+'</td>');
+						tmp.push('<td>'+val.fecha_ingreso+'</td>');
+						tmp.push('<td>'+val.tiempo+val.und_tiempo+'</td>');
+						tmp.push('<td>$'+val.precio+'</td>');
+						tmp.push('<td>$'+(val.precio - val.subtotal_pago)+'</td>');
+						$('<tr/>',{html: tmp.join('')}).appendTo('#servicios');
+					});
+					$('#servicios').append('<p>Valor total servicios prestados: $'+val.deuda</p>);
+					//$('#servicios').append('<p>Valor total deudas pendientes: $'+sum_subtotal_pago</p>);
+					
+					$.each(data.pagos_service,function(index,val){
+						var tmp = [];
+						tmp.push('<td>$'+val.valor_pago+'</td>');
+						tmp.push('<td>'+val.fecha_pago+'</td>');
+						$('<tr/>',{html: tmp.join('')}).appendTo('#pagos');
+					});
+					$('#pagos').append('<p>Valor total pagos realizados: $'+val.pagos</p>);
+					//});
+				},"json");
+}
+*/
 
 function cancelarPagoForm(){
 	$('#formpago').fadeOut(200);
@@ -91,7 +153,8 @@ function ingresarServicio(event){
 }
 
 function init(){
-	$('#resultados a').on("click", mostrarPagoForm);
+	$('#resultados').tabs();
+	$('#resultados #addpago').on("click", mostrarPagoForm);
 	$('#pagoservicio #cancelarpago').on("click", cancelarPagoForm);
 	$('#generarreporte #cancelarreporte').on("click", cancelarReporteForm);
 	$('#ingresovehiculo #btncancelar').on("click", cancelarVehiculoForm);
@@ -101,9 +164,6 @@ function init(){
 }
 
 function mostrarPagoForm(){
-	$('#formpago h2').text("Pago del servicio #");
-	var a = $('#formpago h2').text()+$(this).attr('id');
-	$('#formpago h2').text(a);
 	$('#formpago').fadeIn(2000);
 }
 

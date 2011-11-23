@@ -14,7 +14,9 @@
 	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
 	-->
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
-	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/lib/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="js/lib/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="js/lib/ui/jquery.ui.tabs.js"></script>
 	<script type="text/javascript" src="js/lib/modernizr-2.0.6.js"></script>
 	<!--[if (gte IE 6)&(lte IE 8)]>
 		<script type="text/javascript" src="js/lib/selectivizr.js"></script>
@@ -37,59 +39,52 @@
 	</section>
 	<section id="contenido">
 		<div id="buscadorservicios">
-		<form id="buscaservicio">
-			<fieldset>
-			<p>
-			<label for="param_busqueda">Buscar servicio</label>
-			<input type="text" id="param_busqueda" class="text" placeholder="placa veh&iacute;culo" required />
-			<input type="submit" value="Buscar" class="button"/>
-			</p>
-			</fieldset>
-		</form>
-		<hr />
-		<table id="resultados">
-			<tr>
-				<td>Id. Servicio</td>
-				<td>Fecha de Ingreso</td>
-				<td>Tiempo</td>
-				<td>Debe</td>
-				<td>Acciones</td>
-			</tr>
-			<tr>
-				<td>121</td>
-				<td>2011-11-10</td>
-				<td>8 dias</td>
-				<td>$20000</td>
-				<td><a href="javascript:;" id="121">Pagar</a></td>
-			</tr>
-			<tr>
-				<td>122</td>
-				<td>2011-10-10</td>
-				<td>81 dias</td>
-				<td>$230000</td>
-				<td><a href="javascript:;" id="122">Pagar</a></td>
-			</tr>
-			<tr>
-				<td>123</td>
-				<td>2011-11-10</td>
-				<td>8 dias</td>
-				<td>$20000</td>
-				<td><a href="javascript:;" id="123">Pagar</a></td>
-			</tr>
-			<tr>
-				<td>124</td>
-				<td>2011-10-10</td>
-				<td>81 dias</td>
-				<td>$230000</td>
-				<td><a href="javascript:;" id="124">Pagar</a></td>
-			</tr>
-		</table>	
-		</div>
+			<form id="buscaservicio">
+				<fieldset>
+				<p>
+				<label for="param_busqueda">Buscar servicio</label>
+				<input type="text" id="param_busqueda" class="text" placeholder="placa veh&iacute;culo" required />
+				<input type="submit" value="Buscar" class="button"/>
+				</p>
+				</fieldset>
+			</form>
+			<div id="resultados">
+				<h2></h2>
+				<ul>
+					<li><a href="#tab-1">Servicios</a></li>
+					<li><a href="#tab-2">Pagos</a></li>
+				</ul>
+				<div id="tab-1">
+					<table id="servicios">
+						<tr>
+							<td>Id. Servicio</td>
+							<td>Fecha de Ingreso</td>
+							<td>Tiempo</td>
+							<td>Valor</td>
+							<td>Debe</td>
+						</tr>
+					</table>
+					<div id="totser" class="totales"></div>
+				</div>
+				<div id="tab-2">
+					<table id="pagos">
+						<tr>
+							<td>Valor pago</td>
+							<td>Fecha de Pago</td>
+						</tr>
+					</table>
+					<div id="totpag" class="totales"></div>
+					<input type="button" value="Agregar Pago" id="addpago" class="button"/>
+				</div>
+			</div>		
+		</div> 
 		<div id="formpago">
-			<h2></h2>
-			<hr />
 			<form id="pagoservicio">
 				<fieldset>
+				<p>
+				<label for="valor_pago">Id del Servicio</label>
+				<input type="number" id="servicio_id" class="text" min=1 required/>
+				</p>
 				<p>
 				<label for="valor_pago">Valor a pagar</label>
 				<input type="number" id="valor_pago" class="text" required/>

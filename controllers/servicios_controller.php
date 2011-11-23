@@ -60,11 +60,27 @@ class Servicios_Controller
 				and servicios.vehiculos_id = '%s'
 				order by servicios.id
 			 */
-			$_query3 = sprintf("select distinct servicios.id, servicios.fecha_ingreso, servicios.tiempo, servicios.und_tiempo from servicios,users_servicios
+			$_query3 = sprintf("select distinct servicios.id, servicios.fecha_ingreso, servicios.tiempo, servicios.und_tiempo, servicios.precio from servicios,users_servicios
 			where servicios.id=users_servicios.id and servicios.vehiculos_id = '%s' order by servicios.id",strtoupper($_POST['placa']));
 			$result3 = $this->_conn->execute($_query3);
 			while($servicios_detail_array = $this->_conn->fetch_assoc($result3))
 			{
+				
+				$_query4 = sprintf("select * from pagos where servicios_id=%d", $servicios_detail_array['id']);
+				$result4 = $this->_conn->execute($_query4);
+				while($pagos_array =  $this->_conn->fetch_assoc($result4))
+				{
+					$servicios_array['pagos_service'][] = $pagos_array;
+				}
+				//SELECT servicios_id, sum(valor_pago) FROM pagos where servicios_id=1 group by servicios_id
+				$_query5 = sprintf("SELECT servicios_id, sum(valor_pago) as subtotal FROM pagos where servicios_id='%d' group by servicios_id", $servicios_detail_array['id']);
+				$result5 = $this->_conn->execute($_query5);
+				$subtot_array =  $this->_conn->fetch_assoc($result5);
+				if($subtot_array['subtotal']!=null)
+				$servicios_detail_array['subtotal_pago'] = $subtot_array['subtotal'];
+				else 
+				$servicios_detail_array['subtotal_pago'] = "0";
+				
 				$servicios_array['services'][] = $servicios_detail_array;
 			}
 			echo json_encode($servicios_array);
