@@ -79,19 +79,20 @@
 			</div>		
 		</div> 
 		<div id="formpago">
+			<div id="msgs"></div>
 			<form id="pagoservicio">
 				<fieldset>
 				<p>
-				<label for="valor_pago">Id del Servicio</label>
+				<label for="servicio_id">Id del Servicio</label>
 				<input type="number" id="servicio_id" class="text" min=1 required/>
 				</p>
 				<p>
 				<label for="valor_pago">Valor a pagar</label>
-				<input type="number" id="valor_pago" class="text" required/>
+				<input type="number" id="valor_pago" class="text" min=1 required/>
 				</p>
 				<p>
 				<label for="fecha_pago">Fecha de pago</label>
-				<input type="date" id="fecha_pago" class="text" required/>
+				<input type="date" id="fecha_pago" class="text" min=1 required/>
 				</p>
 				<p>
 				<input type="submit" value="Guardar" class="button"/>

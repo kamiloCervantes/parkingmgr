@@ -10,6 +10,6 @@ if(isset($_POST['action']))
 		{
 			case 'addServicio.do': $_servicios->add(); break;
 			case 'getServicios.do': $_servicios->get(); break;
+			case 'checkServicio.do': $_servicios->checkServicio(); break;
 		}
-	//$_servicios->add();
 }

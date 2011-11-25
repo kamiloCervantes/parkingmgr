@@ -22,7 +22,6 @@ class Vehiculos_Controller
 			$result_users = $this->_conn->execute($_query2);
 			$this->_conn->close();
 			unset($_POST['action']);
-			//echo '{ "respuesta" : "200"}';
 		}
 	}
 	
@@ -33,14 +32,11 @@ class Vehiculos_Controller
 			if(isset($_POST['placa']))
 			{
 				$this->_conn->connect();
-				$_query = sprintf("SELECT tipo_vehiculo, nombre_propietario, tel_propietario, id_propietario FROM vehiculos where id='%s'",$_POST['placa']);
+				$_query = sprintf("SELECT tipo_vehiculo, nombre_propietario, tel_propietario, id_propietario FROM vehiculos where id='%s'",strtoupper($_POST['placa']));
 				$result = $this->_conn->execute($_query);
 				echo $this->_conn->fetch_json($result);
 				$this->_conn->close();
-			}
-			else
-			{
-				//mensaje error
+				unset($_POST['action']);
 			}
 		}
 	}
