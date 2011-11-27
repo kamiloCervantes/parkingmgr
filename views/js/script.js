@@ -111,6 +111,27 @@ function cargarDataVehiculo(){
 				},"json");
 }
 
+function checkPagoValue(){
+	var check = localStorage.debe - $('#pagoservicio #valor_pago').val();
+	var valid = true;
+	var msgs = [];
+	if(check < 0){
+		valid = false;	
+		msgs.push("<li><p>El valor a pagar es mayor que la deuda pendiente</p></li>");
+	}
+	if(!valid){
+		$('#msgs').empty().removeClass('error');
+		$('<ul/>',{
+			html: msgs.join('')
+		}).appendTo('#msgs');
+		$('#msgs').addClass('error');
+	}
+	else{
+		$('#msgs').empty().removeClass('error');
+	}
+	
+}
+
 function checkServiceStatus(event){
 	$('#msgs').empty().removeClass('error');
 	$('#msgs').empty().removeClass('ok');
@@ -125,6 +146,9 @@ function checkServiceStatus(event){
 						placa: localStorage.placa
 					},
 					function(data){
+						var debe = parseInt(data.precio) - parseInt(data.subtotal);
+						localStorage.debe = debe;
+						
 						if(parseInt(data.check)==1){
 							valid = false;	
 							msgs.push("<li><p>El servicio no tiene deudas pendientes</p></li>");
@@ -135,6 +159,7 @@ function checkServiceStatus(event){
 							msgs.push("<li><p>El servicio no existe</p></li>");
 							}
 						}	
+						
 						if(!valid){
 							$('#msgs').empty().removeClass('error');
 							$('<ul/>',{
@@ -198,6 +223,7 @@ function init(){
 	$('#ingresovehiculo').on("submit", ingresarVehiculo);
 	$('#ingresovehiculo #placa').on("blur", cargarDataVehiculo);
 	$('#pagoservicio #servicio_id').on("blur", checkServiceStatus);
+	$('#pagoservicio #valor_pago').on("keyup", checkPagoValue);
 	$('#pagoservicio').on("submit", agregarPago);
 	$('#pagoservicio #cancelarpago').on("click", cancelarPagoForm);
 	$('#buscaservicio').on("submit", buscarServicios);
@@ -312,6 +338,10 @@ function validarForm(form){
 	}
 	$('#msgs').empty().removeClass('error');
 	if(!valid){
+			if(msgs.length == 0){
+				msgs.push("<li><p>El formulario no pudo ser enviado</p></li>"); 
+			}
+
 			$('<ul/>',{
 				html: msgs.join('')
 			}).appendTo('#msgs');

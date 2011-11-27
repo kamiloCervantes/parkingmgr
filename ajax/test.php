@@ -1,6 +1,6 @@
 <?php
 
-include_once '../controllers/vehiculos_controller.php';
+include_once '../controllers/pagos_controller.php';
 
-$_test = new Vehiculos_Controller();
-$_test->test();
+$_test = new Pagos_Controller();
+$_test->getDataFechas();

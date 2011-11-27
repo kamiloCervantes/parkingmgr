@@ -90,45 +90,46 @@ class Servicios_Controller
 								servicios.vehiculos_id='%s'",1,$_POST['servicio_id'],strtoupper($_POST['placa']));
 			$result2 = $this->_conn->execute($_query2);
 			$servicios_check_info = $this->_conn->fetch_assoc($result2);
-			/*
+			
 			$check_info["precio"] = $servicios_check_info["precio"];
-			$check_info["pago"] = $pagos_check_info["subtotal"];
-			echo json_encode($check_info);
-			*/
+			
+			
 			//mirar si el servicio existe 
 			if($servicios_check_info['precio']!=null)
 			{
 				if($pagos_check_info['subtotal']!=null){
+					$check_info["subtotal"] = $pagos_check_info["subtotal"];
 					if($servicios_check_info['precio'] > $pagos_check_info['subtotal'])
 					{
 						//no esta a paz y salvo
-						echo '{ "check" : "0" }';
+						$check_info["check"] = "0";
 					}
 					else 
 					{
 						if($servicios_check_info['precio'] == $pagos_check_info['subtotal'])
 						{
 							//si esta a paz y salvo
-							echo '{ "check" : "1" }';
+							$check_info["check"] = "1";
 						}
 						else 
 						{
 							//pago de mas
-							echo '{ "check" : "-2" }';
+							$check_info["check"] = "-2";
 						}
 					}
 				}
 				else{
 					//no esta a paz y salvo
-					echo '{ "check" : "0" }';
+					$check_info["check"] = "0";
 				}
 			}
 			else 
 			{
 				//no existe el servicio
-				echo '{ "check" : "-1" }';
+				$check_info["check"] = "-1";
+				$check_info["subtotal"] = 0;
 			}
-			
+			echo json_encode($check_info);
 			$this->_conn->close();
 		}
 	}

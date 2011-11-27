@@ -69,6 +69,12 @@ class databaseAdapter
 	{
 		return pg_fetch_assoc($result);
 	}
+	
+	public function fetch_object($result)
+	{
+		return pg_fetch_object($result);
+	}
+	
 
 	 private function setConnectDefault()
 	 {
