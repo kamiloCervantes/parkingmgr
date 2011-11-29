@@ -3,16 +3,22 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Parking Manager</title>
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/style.css" />
 	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script type="text/javascript" src="js/lib/html5.js"></script>
 	<![endif]-->
+	<!--
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	-->
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/lib/modernizr-2.0.6.js"></script>
 	<!--[if (gte IE 6)&(lte IE 8)]>
 		<script type="text/javascript" src="js/lib/selectivizr.js"></script>
 	<![endif]-->
-	<link rel="stylesheet" href="css/normalize.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<script src="js/lib/prefixfree.min.js"></script>
+	<script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
@@ -30,23 +36,47 @@
 	</section>
 	<section id="contenido">
 		<h2>Reporte de Ingresos</h2>
-		<hr />
+		<!--<img id="plot" src="http://localhost/parkingmgr/ajax/plots.php">-->
 		<form id="generarreporte">
 			<fieldset>
 			<p>
-			<label for="fecha_inicial">Fecha inicial</label>
+			<label for="fecha_inicial">Fecha reporte</label>
 			<input type="date" id="fecha_inicial" class="text" required/>
 			</p>
-			<p>
+			<!--<p>
 			<label for="fecha_final">Fecha final</label>
 			<input type="date" id="fecha_final" class="text" required/>
-			</p>
+			</p>-->
 			<p>
 			<input type="submit" value="Generar" class="button"/>
 			<input type="button" value="Cancelar" class="button" id="cancelarreporte"/>
 			</p>
 			</fieldset>
 		</form>
+		<div id="reporte">
+			<table id="mensual">
+				<tr>
+					<td>Mes</td>
+					<td>Total pagos</td>
+				</tr>
+			</table>
+			<p id="week" class="subtitle"></p>
+			<table id="semanal">
+				<tr>
+					<td>Fecha</td>
+					<td>Total pagos</td>
+				</tr>
+			</table>
+			<p id="now" class="subtitle"></p>
+			<table id="diario">
+				<tr>
+					<td>Id del veh&iacute;culo</td>
+					<td>Valor pago</td>
+					<td>Fecha de ingreso</td>
+				</tr>
+			</table>
+			<input type="button" value="Volver" class="button"/>
+		</div>
 	</section>
 	</div>
 	<footer>

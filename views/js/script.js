@@ -3,6 +3,42 @@ jQuery.fn.reset = function () {
   $(this).each (function() { this.reset(); });
 }
 
+//funcion obtener week number para objeto Date
+/**
+ * Returns the week number for this date.  dowOffset is the day of week the week
+ * "starts" on for your locale - it can be from 0 to 6. If dowOffset is 1 (Monday),
+ * the week returned is the ISO 8601 week number.
+ * @param int dowOffset
+ * @return int
+ */
+Date.prototype.getWeek = function (dowOffset) {
+/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
+
+	dowOffset = typeof(dowOffset) == 'int' ? dowOffset : 0; //default dowOffset to zero
+	var newYear = new Date(this.getFullYear(),0,1);
+	var day = newYear.getDay() - dowOffset; //the day of week the year begins on
+	day = (day >= 0 ? day : day + 7);
+	var daynum = Math.floor((this.getTime() - newYear.getTime() - 
+	(this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
+	var weeknum;
+	//if the year starts before the middle of a week
+	if(day < 4) {
+		weeknum = Math.floor((daynum+day-1)/7) + 1;
+		if(weeknum > 52) {
+			nYear = new Date(this.getFullYear() + 1,0,1);
+			nday = nYear.getDay() - dowOffset;
+			nday = nday >= 0 ? nday : nday + 7;
+			/*if the next year starts before the middle of
+ 			  the week, it is week #1 of that year*/
+			weeknum = nday < 4 ? 1 : 53;
+		}
+	}
+	else {
+		weeknum = Math.floor((daynum+day-1)/7);
+	}
+	return weeknum;
+};
+
 $(init);
 
 function agregarPago(event){
@@ -175,6 +211,24 @@ function checkServiceStatus(event){
 	}
 }
 
+function meses(month,year){
+	var meses = [];
+	meses.push('Enero de '+year);
+	meses.push('Febrero de '+year);
+	meses.push('Marzo de '+year);
+	meses.push('Abril de '+year);
+	meses.push('Mayo de '+year);
+	meses.push('Junio de '+year);
+	meses.push('Julio de '+year);
+	meses.push('Agosto de '+year);
+	meses.push('Septiembre de '+year);
+	meses.push('Octubre de '+year);
+	meses.push('Noviembre de '+year);
+	meses.push('Diciembre de '+year);
+	
+	return meses[month];
+}
+
 function enviarServicio(){
 	$.post("../ajax/servicios.php",
 				{ 
@@ -196,11 +250,76 @@ function enviarVehiculo(){
 					id_propietario: $('#id_propietario').val(),
 					tel_propietario: $('#tel_propietario').val()
 				});
+}
 
+function generarPlot(event){
+	event.preventDefault();
+	var date = new Date($('#fecha_inicial').val());
+	$.post("../ajax/test.php",{ week: date.getWeek() },
+				function(data){
+					alert(data);
+				});
+} 
+
+function generarReporte(event){
+	event.preventDefault();
+	if(validarForm('#generarreporte')){
+	var date = $('#fecha_inicial').val().split('-');
+	$.post("../ajax/pagos.php",
+				{ 
+					action: "getDataReportes.do",
+					day: date[2],
+					month: date[1],
+					year: date[0],
+					fecha: date.join('-')
+				},
+				function(data){
+					$('#reporte #mensual tr:not(#reporte #mensual tr:first-child)').remove();
+					$('#reporte #semanal tr:not(#reporte #semanal tr:first-child)').remove();
+					$('#reporte #diario tr:not(#reporte #diario tr:first-child)').remove();
+					var mes = [];
+					if(data.dia=="0"){
+						alert("No hay reportes disponibles");
+					}
+					else{
+						$('#generarreporte').hide();
+						$('#reporte').show();
+						$('#reporte').on('click',function(){
+							$('#generarreporte').show();
+							$('#reporte').hide();
+						});
+						mes.push('<td>'+meses(parseInt(data.mes[0].mes)-1,date[0])+'</td>');
+						mes.push('<td>'+data.mes[0].sum+'</td>');
+						$('<tr/>',{
+							html: mes.join()
+						}).appendTo('#reporte #mensual');
+						
+						$.each(data.semana,function(index,val){
+							var semana = [];
+							semana.push('<td>'+val.fecha_pago+'</td>');
+							semana.push('<td>'+val.sum+'</td>');
+							$('<tr/>',{
+							html: semana.join()
+							}).appendTo('#reporte #semanal');
+							$('#week').text("Pagos de la semana "+val.week+" de "+date[0]);
+						});	
+								
+						$.each(data.dia,function(index,val){
+							var dia = [];
+							dia.push('<td>'+val.vehiculos_id+'</td>');
+							dia.push('<td>'+val.valor_pago+'</td>');
+							dia.push('<td>'+val.fecha_ingreso+'</td>');
+							$('<tr/>',{
+								html: dia.join()
+							}).appendTo('#reporte #diario');
+							$('#now').text("Pagos del "+date.join('-'));
+						});
+					}
+				},'json');
+	}
 }
 
 function ingresarVehiculo(event){
-	alert("por aqui");
 	event.preventDefault();
 	if(validarForm('#ingresovehiculo')){
 		alert(localStorage.loadedVehicle);
@@ -227,6 +346,9 @@ function init(){
 	$('#pagoservicio').on("submit", agregarPago);
 	$('#pagoservicio #cancelarpago').on("click", cancelarPagoForm);
 	$('#buscaservicio').on("submit", buscarServicios);
+	$('#generarreporte').on("submit", generarReporte);
+	var date = new Date();
+	$('#fecha_inicial').val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
 }
 
 function mostrarPagoForm(){

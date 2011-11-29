@@ -75,7 +75,11 @@ class databaseAdapter
 		return pg_fetch_object($result);
 	}
 	
-
+	public function rowCount($result)
+	{
+		return pg_num_rows($result);
+	}
+	
 	 private function setConnectDefault()
 	 {
         	$info = new dbconf();

@@ -8,5 +8,6 @@ $_pagos = new Pagos_Controller();
 		switch($_POST['action'])
 		{
 			case 'addPago.do': $_pagos->add(); break;
+			case 'getDataReportes.do': $_pagos->getDataReportes(); break;
 		}
 }

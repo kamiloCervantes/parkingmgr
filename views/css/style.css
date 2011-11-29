@@ -7,6 +7,17 @@
          url('fonts/xenophone-webfont.svg#XenophoneRegular') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'PlaytimeWithHotToddiesRegular';
+    src: url('fonts/playtime-webfont.eot');
+    src: url('fonts/playtime-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/playtime-webfont.woff') format('woff'),
+         url('fonts/playtime-webfont.ttf') format('truetype'),
+         url('fonts/playtime-webfont.svg#PlaytimeWithHotToddiesRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
 }
 
@@ -49,8 +60,9 @@ footer{
 	color: #fff;
 }
 
-h2{
+h2,.subtitle{
 	color: #fff;
+	font-family: 'PlaytimeWithHotToddiesRegular','Arial';
 }
 
 h3{
@@ -134,6 +146,10 @@ ul{
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+.subtitle{
+	font-size: 19px;
 }
 
 #content section{
@@ -235,13 +251,17 @@ ul{
 	width: 30%;
 }
 
+#reporte{
+	display: none;
+}
+
 #resultados{
 	display: none;
 	margin: 0 auto 1em auto;
 	width: 95%;
 }
 
-#resultados table tr:first-child{
+#resultados table tr:first-child, #reporte table tr:first-child{
 	background: #000;
 	color: #fff;
 }
@@ -250,7 +270,7 @@ ul{
 	color: #e17009;
 }
 
-#resultados table tr:nth-child(even){
+#resultados table tr:nth-child(even),#reporte table tr:nth-child(even){
 	background: #85b5d9;
 }
 

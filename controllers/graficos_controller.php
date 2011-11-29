@@ -30,10 +30,11 @@ class Graficos_Controller
 		}
 		echo json_encode($ingresos_data);*/
 		//echo json_encode($plot_data);
- 		$MyData = new pData();   
+ 		
+		$MyData = new pData();   
  		//$MyData->addPoints(array(3,12,15,8,5,7),"Probe 1"); 
- 		$MyData->addPoints($ingresos_data,"Probe 1"); 
-	 	$MyData->setSerieWeight("Probe 1",2); 
+ 		$MyData->addPoints($ingresos_data,"Ingresos"); 
+	 	$MyData->setSerieWeight("Ingresos",2); 
 	 	$MyData->setAxisName(0,"Ingresos"); 
 	 	//$MyData->addPoints(array("Jan","Feb","Mar","Apr","May","Jun"),"Labels"); 
 	 	$MyData->addPoints($fechas_data,"Labels");
@@ -60,7 +61,7 @@ class Graficos_Controller
 	  
 	 	/* Write the chart title */  
 	 	$myPicture->setFontProperties(array("FontName"=>"../libs/pChart/fonts/Forgotte.ttf","FontSize"=>8,"R"=>255,"G"=>255,"B"=>255)); 
-	 	$myPicture->drawText(10,16,"Ingresos de la semana",array("FontSize"=>11,"Align"=>TEXT_ALIGN_BOTTOMLEFT)); 
+	 	$myPicture->drawText(10,16,"Ingresos de la semana ",array("FontSize"=>11,"Align"=>TEXT_ALIGN_BOTTOMLEFT)); 
 	
 	 	/* Set the default font */ 
 	 	$myPicture->setFontProperties(array("FontName"=>"../libs/pChart/fonts/pf_arma_five.ttf","FontSize"=>6,"R"=>0,"G"=>0,"B"=>0)); 
