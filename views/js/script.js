@@ -52,11 +52,13 @@ function agregarPago(event){
 					fecha_pago: $('#fecha_pago').val()
 				},
 				function(data){
+					redireccion(parseInt(data.login));
 					$('#buscaservicio').submit();
 					$('#pagoservicio #cancelarpago').click();
 				},"json");
 	}
 }
+
 
 function buscarServicios(event){
 	if(!vacio($('#param_busqueda').val())){
@@ -77,9 +79,10 @@ function buscarServicios(event){
 					placa: localStorage.placa
 				},
 				function(data){
-					if(data.vehiculos_id){
+					redireccion(parseInt(data.login));
+					if(data.vehiculos_id!='undefined'){
 						$('#resultados').fadeIn();
-						$('#resultados h2').text("Estado de cuenta del vehiculo "+data.vehiculos_id);
+						$('#resultados h2').text("Estado de cuenta del automotor "+data.vehiculos_id);
 						var sum_subtotal_pago = 0;
 						$.each(data.services,function(index,val){
 							sum_subtotal_pago += parseInt((val.precio - val.subtotal_pago));
@@ -91,16 +94,17 @@ function buscarServicios(event){
 							tmp.push('<td>$'+(val.precio - val.subtotal_pago)+'</td>');
 							$('<tr/>',{html: tmp.join('')}).appendTo('#servicios');
 						});
-						
+						var pagos = 0;
 						$.each(data.pagos_service,function(index,val){
 							var tmp = [];
+							pagos+= parseInt(val.valor_pago);
 							tmp.push('<td>$'+val.valor_pago+'</td>');
 							tmp.push('<td>'+val.fecha_pago+'</td>');
 							$('<tr/>',{html: tmp.join('')}).appendTo('#pagos');
 						});
 						$('#totser').append('<p>Valor total servicios prestados: $'+data.deuda+'</p>');
 						$('#totser').append('<p>Valor total deudas pendientes: $'+sum_subtotal_pago+'</p>');
-						$('#totpag').append('<p>Valor total pagos realizados: $'+data.pagos+'</p>');
+						$('#totpag').append('<p>Valor total pagos realizados: $'+pagos+'</p>');
 						
 					}
 					else{
@@ -133,16 +137,21 @@ function cargarDataVehiculo(){
 					placa: $('#placa').val()
 				},
 				function(data){
-					if(data){
-						localStorage.loadedVehicle = 1;
-						$('#tipo_vehiculo').val(data.tipo_vehiculo);
-						$('#propietario').val(data.nombre_propietario);
-						$('#id_propietario').val(data.id_propietario);
-						$('#tel_propietario').val(data.tel_propietario);
-						$('#tiempo').focus();
+					if(data.login==0){
+						window.location = 'index.html';
 					}
 					else{
-						localStorage.loadedVehicle = 0;
+						if(data){
+							localStorage.loadedVehicle = 1;
+							$('#tipo_vehiculo').val(data.tipo_vehiculo);
+							$('#propietario').val(data.nombre_propietario);
+							$('#id_propietario').val(data.id_propietario);
+							$('#tel_propietario').val(data.tel_propietario);
+							$('#tiempo').focus();
+						}
+						else{
+							localStorage.loadedVehicle = 0;
+						}
 					}
 				},"json");
 }
@@ -165,7 +174,7 @@ function checkPagoValue(){
 	else{
 		$('#msgs').empty().removeClass('error');
 	}
-	
+	//localStorage.validPagoValue = valid;
 }
 
 function checkServiceStatus(event){
@@ -182,6 +191,7 @@ function checkServiceStatus(event){
 						placa: localStorage.placa
 					},
 					function(data){
+						redireccion(parseInt(data.login));
 						var debe = parseInt(data.precio) - parseInt(data.subtotal);
 						localStorage.debe = debe;
 						
@@ -208,25 +218,8 @@ function checkServiceStatus(event){
 								$('#msgs').empty().removeClass('error');
 							}
 						},"json");
+						//localStorage.validServiceStatus = valid;
 	}
-}
-
-function meses(month,year){
-	var meses = [];
-	meses.push('Enero de '+year);
-	meses.push('Febrero de '+year);
-	meses.push('Marzo de '+year);
-	meses.push('Abril de '+year);
-	meses.push('Mayo de '+year);
-	meses.push('Junio de '+year);
-	meses.push('Julio de '+year);
-	meses.push('Agosto de '+year);
-	meses.push('Septiembre de '+year);
-	meses.push('Octubre de '+year);
-	meses.push('Noviembre de '+year);
-	meses.push('Diciembre de '+year);
-	
-	return meses[month];
 }
 
 function enviarServicio(){
@@ -237,7 +230,10 @@ function enviarServicio(){
 					tiempo: $('#tiempo').val(), 
 					und_tiempo: $('#und_tiempo').val(),
 					precio: $('#precio').val()
-				});
+				},
+				function(){
+					redireccion(parseInt(data.login));
+				},"json");
 }
 
 function enviarVehiculo(){
@@ -252,15 +248,6 @@ function enviarVehiculo(){
 				});
 }
 
-function generarPlot(event){
-	event.preventDefault();
-	var date = new Date($('#fecha_inicial').val());
-	$.post("../ajax/test.php",{ week: date.getWeek() },
-				function(data){
-					alert(data);
-				});
-} 
-
 function generarReporte(event){
 	event.preventDefault();
 	if(validarForm('#generarreporte')){
@@ -274,6 +261,7 @@ function generarReporte(event){
 					fecha: date.join('-')
 				},
 				function(data){
+					redireccion(parseInt(data.login));
 					$('#reporte #mensual tr:not(#reporte #mensual tr:first-child)').remove();
 					$('#reporte #semanal tr:not(#reporte #semanal tr:first-child)').remove();
 					$('#reporte #diario tr:not(#reporte #diario tr:first-child)').remove();
@@ -322,7 +310,6 @@ function generarReporte(event){
 function ingresarVehiculo(event){
 	event.preventDefault();
 	if(validarForm('#ingresovehiculo')){
-		alert(localStorage.loadedVehicle);
 		if(localStorage.loadedVehicle == 0){
 			enviarVehiculo();
 			enviarServicio();
@@ -347,14 +334,75 @@ function init(){
 	$('#pagoservicio #cancelarpago').on("click", cancelarPagoForm);
 	$('#buscaservicio').on("submit", buscarServicios);
 	$('#generarreporte').on("submit", generarReporte);
+	$('#form_login').on("submit", login);
+	$('#menu #salir').on("click", logout);
 	var date = new Date();
 	$('#fecha_inicial').val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
+}
+
+function login(event){
+	event.preventDefault();
+	if(validarForm('#form_login')){
+	$.post("../ajax/session.php",
+				{ 
+					action: 'login.do',
+					user: $('#user').val(), 
+					pass: $('#pass').val()
+				},
+				function(data){
+					redireccion(parseInt(data.login));
+				},"json");
+	}
+}
+
+function logout(){
+	$.post("../ajax/session.php",
+				{ 
+					action: 'logout.do'
+				},
+				function(data){
+					if(data.logout==1){
+						window.location = 'index.html';
+					}
+					else{
+						alert("Error");
+					}
+				},"json");
+	}
+
+function meses(month,year){
+	var meses = [];
+	meses.push('Enero de '+year);
+	meses.push('Febrero de '+year);
+	meses.push('Marzo de '+year);
+	meses.push('Abril de '+year);
+	meses.push('Mayo de '+year);
+	meses.push('Junio de '+year);
+	meses.push('Julio de '+year);
+	meses.push('Agosto de '+year);
+	meses.push('Septiembre de '+year);
+	meses.push('Octubre de '+year);
+	meses.push('Noviembre de '+year);
+	meses.push('Diciembre de '+year);
+	
+	return meses[month];
 }
 
 function mostrarPagoForm(){
 	var date = new Date();
 	$('#fecha_pago').val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
 	$('#formpago').fadeIn(2000);
+}
+
+function redireccion(index){
+	if(index==1){
+		window.location = 'nuevoingreso.html';
+	}
+	else{
+		if(index==0){
+			window.location = 'index.html';
+		}
+	}
 }
 
 function vacio(cadena)  
